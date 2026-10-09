@@ -1,0 +1,259 @@
+   <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Следы Великой Отечественной войны на карте Алматы (1941–1945)</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">Следы Войны · Алматы 1941–1945 
+            автор сайта Мухамедзнова Дания 9Б
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#map-section">Карта</a></li>
+                <li><a href="#timeline-section">По годам</a></li>
+                <li><a href="#rear">Тыл</a></li>
+                <li><a href="#hospitals">Госпитали</a></li>
+                <li><a href="#route">Маршрут</a></li>
+                <li><a href="#people">Люди</a></li>
+                <li><a href="#comparison">Тогда/Сейчас</a></li>
+                <li><a href="#sources">Источники</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Следы Великой Отечественной<br><span>на карте Алматы</span></h1>
+            <p>Алматы в 1941–1945 годах: эвакуированные предприятия, госпитали, судьбы людей и места памяти тылового города.</p>
+            <a href="#map-section" class="btn">🗺️ Исследовать карту</a>
+        </div>
+    </section>
+
+    <!-- Интерактивная карта -->
+    <section id="map-section" class="reveal">
+        <h2 class="section-title">Интерактивная карта памяти</h2>
+        <p class="section-desc">Нажимайте на фильтры и точки на карте, чтобы открыть архивные дела объектов.</p>
+        
+        <div class="map-filters">
+            <button class="filter-btn active" onclick="filterMap('all', this)">ВСЕ ОБЪЕКТЫ</button>
+            <button class="filter-btn" onclick="filterMap('enterprise', this)">🏭 ПРЕДПРИЯТИЯ</button>
+            <button class="filter-btn" onclick="filterMap('hospital', this)">🏥 ГОСПИТАЛИ</button>
+            <button class="filter-btn" onclick="filterMap('person', this)">👤 ЛЮДИ</button>
+            <button class="filter-btn" onclick="filterMap('memorial', this)">🕯️ ПАМЯТНЫЕ МЕСТА</button>
+        </div>
+
+        <div class="map-container" id="mapContainer">
+            <div class="map-bg-grid-text">ALMATY · 1941-1945</div>
+            
+            <div class="map-point point-enterprise" style="top: 35%; left: 40%;" data-category="enterprise" onclick="showPointInfo(1)"></div>
+            <div class="map-point point-hospital" style="top: 55%; left: 60%;" data-category="hospital" onclick="showPointInfo(2)"></div>
+            <div class="map-point point-person" style="top: 45%; left: 50%;" data-category="person" onclick="showPointInfo(3)"></div>
+            <div class="map-point point-memorial" style="top: 70%; left: 30%;" data-category="memorial" onclick="showPointInfo(4)"></div>
+            <div class="map-point point-enterprise" style="top: 25%; left: 70%;" data-category="enterprise" onclick="showPointInfo(5)"></div>
+            <div class="map-point point-hospital" style="top: 65%; left: 45%;" data-category="hospital" onclick="showPointInfo(6)"></div>
+        </div>
+
+        <div class="investigation-card" id="infoCard">
+            <div class="archive-stamp" id="cardStamp">АРХИВ · ОБЪЕКТ №014</div>
+            <div class="coords" id="cardCoords">43.2567° N, 76.9286° E</div>
+            <div class="investigation-grid">
+                <div>
+                    <h3 id="cardTitle" style="color: var(--color-cream); font-size: 1.4rem; margin-bottom: 0.8rem;">Выберите объект на карте</h3>
+                    <p id="cardDesc" style="color: var(--color-gray); margin-bottom: 1rem;">Нажмите на любую цветную точку выше, чтобы поднять архивные документы и узнать историю места.</p>
+                    <p id="cardToday" style="font-size: 0.9rem; color: var(--color-white);"><strong>Сегодня на этом месте:</strong> —</p>
+                </div>
+                <div>
+                    <img id="cardImg" src="" alt="Алматы" class="investigation-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Алматы по годам -->
+    <section id="timeline-section" class="reveal">
+        <h2 class="section-title">Алматы по годам войны</h2>
+        <p class="section-desc">Выберите год, чтобы увидеть хронологию событий.</p>
+        
+        <div class="timeline-bar">
+            <div class="year-node active" onclick="setYear(1941, this)">1941 · Начало эвакуации</div>
+            <div class="year-node" onclick="setYear(1942, this)">1942 · Пик тылового роста</div>
+            <div class="year-node" onclick="setYear(1943, this)">1943 · Мощность фронту</div>
+            <div class="year-node" onclick="setYear(1944, this)">1944 · Наука и производство</div>
+            <div class="year-node" onclick="setYear(1945, this)">1945 · Год Победы</div>
+        </div>
+        
+        <div id="yearContent" class="card fade-content" style="margin-top: 1.5rem;">
+            <span class="archive-stamp">ХРОНИКА 1941 ГОДА</span>
+            <h3 style="color: var(--color-cream); margin-bottom: 0.5rem;">Первые эшелоны с Запада</h3>
+            <p style="color: var(--color-gray);">В Алматы прибывают первые эвакуированные заводы, фабрики и тысячи специалистов. Город принимает эвакуированных ленинградцев, москвичей, украинцев.</p>
+        </div>
+    </section>
+
+    <!-- Алматы — город тыла -->
+    <section id="rear" class="reveal">
+        <h2 class="section-title">Алматы работал для фронта</h2>
+        <p class="section-desc">Ключевые предприятия, переброшенные в глубокий тыл.</p>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="archive-stamp">ПРЕДПРИЯТИЕ №1</span>
+                <h3>Алматинский завод им. Кирова</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Производство торпед, мин и боеприпасов для фронта круглосуточно.</p>
+                <p style="font-size: 0.85rem; color: var(--color-cream);">📍 Район ул. Шевченко / Розыбакиева</p>
+            </div>
+            <div class="card">
+                <span class="archive-stamp">ПРЕДПРИЯТИЕ №2</span>
+                <h3>Эвакуированная киностудия (ЦНКС)</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Объединение Мосфильма и Ленфильма в Алматы под руководством С. Эйзенштейна.</p>
+                <p style="font-size: 0.85rem; color: var(--color-cream);">📍 Здание «Казахфильм»</p>
+            </div>
+            <div class="card">
+                <span class="archive-stamp">ПРЕДПРИЯТИЕ №3</span>
+                <h3>Швейная фабрика им. Дзержинского</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Массовый пошив обмундирования, шинелей и теплых вещей для действующей армии.</p>
+                <p style="font-size: 0.85rem; color: var(--color-cream);">📍 Центр города</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Госпитали -->
+    <section id="hospitals" class="reveal">
+        <h2 class="section-title">Города-госпитали Алматы</h2>
+        <p class="section-desc">Школы и общежития, превращенные в спасательные пункты для раненых.</p>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="archive-stamp">ГОСПИТАЛЬ №1235</span>
+                <h3>Эвакогоспиталь в здании школы №28</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Тысячи бойцов вернулись в строй благодаря самоотверженности алматинских врачей.</p>
+                <p style="font-size: 0.85rem; color: var(--color-cream);">📅 1941–1945 гг.</p>
+            </div>
+            <div class="card">
+                <span class="archive-stamp">ГОСПИТАЛЬ №2411</span>
+                <h3>Госпиталь в курортной зоне Медеу</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Горный воздух и минеральные воды использовались для реабилитации тяжелораненых.</p>
+                <p style="font-size: 0.85rem; color: var(--color-cream);">📅 1942–1945 гг.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Маршрут -->
+    <section id="route" class="reveal">
+        <h2 class="section-title">Маршрут: «Один день военного Алматы»</h2>
+        <p class="section-desc">Пройдите по ключевым точкам исторического дня тылового города.</p>
+        
+        <div class="route-box">
+            <div class="route-steps-indicator">
+                <span id="st1" class="active-step">01. Вокзал</span> / 
+                <span id="st2">02. Госпиталь</span> / 
+                <span id="st3">03. Завод</span> / 
+                <span id="st4">04. Жилой квартал</span> / 
+                <span id="st5">05. Мемориал</span>
+            </div>
+            
+            <div class="fade-content" id="routeContentBlock">
+                <span class="archive-stamp" id="routeStamp">ОСТАНОВКА №1 · ПРИБЫТИЕ</span>
+                <h3 id="routeTitle" style="color: var(--color-cream); font-size: 1.5rem; margin-bottom: 1rem;">Железнодорожный вокзал Алма-Ата 2</h3>
+                <p id="routeDesc" style="color: var(--color-gray); margin-bottom: 1.5rem; font-size: 1.05rem;">Сюда непрерывно прибывали эшелоны с эвакуированными заводами, ранеными бойцами и беженцами.</p>
+            </div>
+            
+            <div class="route-controls">
+                <button class="btn" onclick="prevRouteStep()" style="background: var(--bg-card); border: 1px solid var(--border-color);">← Назад</button>
+                <button class="btn" onclick="nextRouteStep()">Следующая точка →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Люди -->
+    <section id="people" class="reveal">
+        <h2 class="section-title">Истории людей</h2>
+        <p class="section-desc">Судьбы реальных жителей и эвакуированных в Алматы.</p>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="archive-stamp">ЛИЧНОЕ ДЕЛО</span>
+                <h3>Владимир Вернадский</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Академик, эвакуирован в Казахстан. Изучал природные ресурсы для фронта.</p>
+            </div>
+            <div class="card">
+                <span class="archive-stamp">ЛИЧНОЕ ДЕЛО</span>
+                <h3>Маншук Маметова</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Студентка из Алматы, доброволец, пулеметчица, Герой Советского Союза.</p>
+            </div>
+            <div class="card">
+                <span class="archive-stamp">ЛИЧНОЕ ДЕЛО</span>
+                <h3>Сергей Эйзенштейн</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem; margin-bottom: 1rem;">Знаменитый кинорежиссер, работавший в эвакуации над картиной «Иван Грозный».</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Тогда / Сейчас -->
+    <section id="comparison" class="reveal">
+        <h2 class="section-title">Тогда → Сейчас</h2>
+        <p class="section-desc">Передвигайте ползунок, чтобы сравнить Алматы 1940-х с современным городом.</p>
+        
+        <div class="comparison-container" id="compContainer">
+            <div class="comparison-img img-then"></div>
+            <div class="comparison-img img-now" id="nowLayer"></div>
+            <div class="slider-handle-line" id="sliderLine" style="left: 50%;">
+                <div class="slider-knob">↔</div>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="slider-range" id="sliderRange" oninput="slideCompare(this.value)">
+        </div>
+    </section>
+
+    <!-- Статистика -->
+    <section id="stats" class="reveal">
+        <h2 class="section-title">Алматы в цифрах</h2>
+        <p class="section-desc">Масштаб вклада тылового города в победу.</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">30+</div>
+                <p style="color: var(--color-gray); font-size: 0.9rem;">Эвакуированных предприятий</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">34</div>
+                <p style="color: var(--color-gray); font-size: 0.9rem;">Военных госпиталя</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">70К+</div>
+                <p style="color: var(--color-gray); font-size: 0.9rem;">Раненых на излечении</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1945</div>
+                <p style="color: var(--color-gray); font-size: 0.9rem;">Год Победы</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Источники -->
+    <section id="sources" class="reveal">
+        <h2 class="section-title">Архивные источники</h2>
+        <p class="section-desc">Документы и книги, использованные в исследовании.</p>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="archive-stamp">АРХИВ №1</span>
+                <h3>Государственный архив г. Алматы</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem;">Фонд постановлений горисполкома военного времени.</p>
+            </div>
+            <div class="card">
+                <span class="archive-stamp">АРХИВ №2</span>
+                <h3>Музей истории города Алматы</h3>
+                <p style="color: var(--color-gray); font-size: 0.9rem;">Фотоматериалы, личные вещи бойцов и трудовых коллективов.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Мухамедзянова Дания 9Б</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
